@@ -1,0 +1,429 @@
+﻿<local:BasePage x:Class="Library.IndexPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Library"
+      mc:Ignorable="d" 
+      d:DesignHeight="540" d:DesignWidth="920"
+      Title="IndexPage">
+    
+
+    <Grid Background="{StaticResource MainBackgroundColorBrush}">
+        <Grid.RowDefinitions>
+            <!--  Page Title -->
+            <RowDefinition Height="Auto" />
+            <!-- Slider -->
+            <RowDefinition Height="*" />
+            <!-- Admins Area-->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Page Title -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <!-- This Column Is Blanck -->
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <!-- This Column Is Blanck -->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Grid In the Secound Column -->
+            <Grid Grid.Column="1" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <!-- First Border -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Text Content -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Secound Border -->
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- First Border Column -->
+                <Border Grid.Column="0" BorderBrush="{StaticResource BlueColorBruh}" 
+                        Padding="0" Margin="0,20,0,0" BorderThickness="0 0 0 1">
+
+
+                </Border>
+
+                <!-- Text Block -->
+                <TextBlock Text="Books Categories" Grid.Column="1" TextAlignment="Center" 
+                           VerticalAlignment="Bottom" Foreground="{StaticResource TextBlackColorBrush}"
+                           FontWeight="Bold" FontSize="12"/>
+
+                <!-- Secound Border Column -->
+                <Border Grid.Column="2" BorderBrush="{StaticResource BlueColorBruh}" 
+                        Padding="0" Margin="0,20,0,0" BorderThickness="0 0 0 1">
+
+                </Border>
+            </Grid>
+
+        </Grid>
+
+        <!-- Slider -->
+        <Border Grid.Row="1" BorderBrush="{StaticResource MainBackgroundColorBrush}"
+                Margin="0 20 0 0" BorderThickness="1"
+                Padding="0">
+            <!-- border effect -->
+
+
+            <Grid SnapsToDevicePixels="True" Height="185">
+                <ScrollViewer CanContentScroll="True"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Hidden"
+                              Name="SliderScroller"
+                              Template="{StaticResource ScrollViewerControlTemplate1}">
+                    <ListBox Name="BooksCteagories">
+                        <!-- ItemPanel Used To Chang The List Box Oriantation -->
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        CanHorizontallyScroll="True"
+                                        Background="{StaticResource MainBackgroundColorBrush}"
+                                        Margin="0"
+                                        CanVerticallyScroll="False"
+                                        >
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="Background" Value="{StaticResource MainBackgroundColorBrush}" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+
+                                <!-- ItemTemplate Used To Set Hover Background -->
+                                <Setter Property="ItemTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <Border 
+                                        Padding="0"
+                                        Margin="0"
+                                        Background="{Binding Path=Background, RelativeSource={
+                                        RelativeSource
+                                        Mode=FindAncestor,
+                                        AncestorType={x:Type ListBoxItem}
+                                }}">
+                                                <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Text}"></TextBlock>-->
+                                                <local:BookCategoryItem />
+                                            </Border>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <!-- the Style Of The Items Container -->
+                                <Setter Property="ItemContainerStyle">
+                                    <Setter.Value>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="Background" Value="{StaticResource MainBackgroundColorBrush}"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Margin" Value="5 0" />
+                                            <Style.Triggers>
+                                                <Trigger Property="ListBoxItem.IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource MainBackgroundColorBrush}" />
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                    <Setter Property="BorderThickness" Value="0" />
+                                                    <Setter Property="Padding" Value="0"/>
+
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.Style>
+
+                        <ListBox.Items>
+
+                        </ListBox.Items>
+                    </ListBox>
+                </ScrollViewer>
+                <!-- Navigation Buttons -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Previeus Button -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!-- the Button -->
+                        <Button Click="Button_Click_1" Grid.Row="1" 
+                                Style="{StaticResource NButtons}"
+                                HorizontalAlignment="Left">
+                            <Button.Content>
+                                <Image Source="/Images/arrow.png" >
+                                    <Image.LayoutTransform>
+                                        <RotateTransform Angle="180" CenterX="0" CenterY="0" />
+                                    </Image.LayoutTransform>
+                                </Image>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+
+                    <!--The Next Button -->
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!-- the Button -->
+                        <Button Click="Button_Click" Grid.Row="1" Style="{StaticResource NButtons}"
+                                HorizontalAlignment="Right">
+                            <Button.Content>
+                                <Image Source="/Images/arrow.png" >
+                                    <Image.LayoutTransform>
+                                        <RotateTransform Angle="180" CenterX="0" CenterY="0" />
+                                    </Image.LayoutTransform>
+                                </Image>
+                            </Button.Content>
+                            <Button.LayoutTransform>
+                                <RotateTransform Angle="180" CenterX="0" CenterY="0" />
+                            </Button.LayoutTransform>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
+        </Border>
+
+        <!-- admins area -->
+        <Grid Grid.Row="2" Panel.ZIndex="-100">
+            <Grid.ColumnDefinitions>
+                <!-- the manager picture -->
+                <ColumnDefinition Width="*" />
+                <!--the admins pictures and footer links-->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- the manager area-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Padding="20 20 20 0">
+                    <Button>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template" Value="{StaticResource LabelButton}" />
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Image Source="/Images/admin.png" />
+                        </Button.Content>
+                    </Button>
+                </Border>
+                <TextBlock Text="Hafid id-baha" 
+                           TextAlignment="Center"
+                           Foreground="{StaticResource TextBlackColorBrush}"
+                           FontSize="15"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Grid.Row="1"
+                           >
+
+                </TextBlock>
+            </Grid>
+
+            <!-- the admins area -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <!-- title -->
+                    <RowDefinition Height="Auto" />
+                    <!-- admins -->
+                    <RowDefinition Height="*" />
+                    <!-- footer -->
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- admins Title -->
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <!-- This Column Is Blanck -->
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <!-- This Column Is Blanck -->
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Grid In the Secound Column -->
+                    <Grid Grid.Column="1" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <!-- First Border -->
+                            <ColumnDefinition Width="*" />
+                            <!-- Text Content -->
+                            <ColumnDefinition Width="*" />
+                            <!-- Secound Border -->
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- First Border Column -->
+                        <Border Grid.Column="0" BorderBrush="{StaticResource BlueColorBruh}" 
+                        Padding="0" Margin="0,20,0,0" BorderThickness="0 0 0 1">
+
+                        </Border>
+
+                        <!-- Text Block -->
+                        <TextBlock Text="Admins" Grid.Column="1" TextAlignment="Center" 
+                           VerticalAlignment="Bottom" Foreground="{StaticResource TextBlackColorBrush}"
+                           FontWeight="Bold" FontSize="12"/>
+
+                        <!-- Secound Border Column -->
+                        <Border Grid.Column="2" BorderBrush="{StaticResource BlueColorBruh}" 
+                        Padding="0" Margin="0,20,0,0" BorderThickness="0 0 0 1">
+
+                        </Border>
+                    </Grid>
+
+                </Grid>
+
+                <!-- admins -->
+                <Grid Grid.Row="1"  Height="150">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Padding="20 20 20 0">
+                            <Button>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template" Value="{StaticResource LabelButton}" />
+                                    </Style>
+                                </Button.Style>
+                                <Button.Content>
+                                    <Image Source="/Images/admin.png" />
+                                </Button.Content>
+                            </Button>
+                        </Border>
+                        <Viewbox Grid.Row="1">
+                            <TextBlock Text="Ousama Ridwan"
+                                       Padding="5"
+                                       TextAlignment="Center"
+                                       Foreground="{StaticResource TextBlackColorBrush}"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                           >
+
+                            </TextBlock>
+                        </Viewbox>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Padding="20 20 20 0">
+                            <Button>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template" Value="{StaticResource LabelButton}" />
+                                    </Style>
+                                </Button.Style>
+                                <Button.Content>
+                                    <Image Source="/Images/admin.png" />
+                                </Button.Content>
+                            </Button>
+                        </Border>
+                        <Viewbox Grid.Row="1">
+                            <TextBlock Text="Ahmed Ali"
+                                       Padding="5"
+                                       TextAlignment="Center"
+                                       Foreground="{StaticResource TextBlackColorBrush}"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                           >
+
+                            </TextBlock>
+                        </Viewbox>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Padding="20 20 20 0">
+                            <Button>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template" Value="{StaticResource LabelButton}" />
+                                    </Style>
+                                </Button.Style>
+                                <Button.Content>
+                                    <Image Source="/Images/admin.png" />
+                                </Button.Content>
+                            </Button>
+                        </Border>
+                        <Viewbox Grid.Row="1">
+                            <TextBlock Text="Mouhammed Motwakil"
+                                       Padding="5"
+                                       TextAlignment="Center"
+                                       Foreground="{StaticResource TextBlackColorBrush}"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                           >
+
+                            </TextBlock>
+                        </Viewbox>
+                    </Grid>
+                </Grid>
+
+                <!-- footer -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="Tearms And Rights"
+                            Grid.Column="0"
+                            Style="{StaticResource LinkButton}"
+                        />
+                    <Button Content="Books"
+                        Grid.Column="1"
+                        Style="{StaticResource LinkButton}" />
+
+                    <Button Content="?"
+                        Style="{StaticResource LinkButton}"
+                        Grid.Column="2"
+                            />
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+    </Grid>
+
+</local:BasePage>

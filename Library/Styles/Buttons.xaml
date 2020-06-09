@@ -1,0 +1,418 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Library">
+    <!-- Navigation Item Buttons -->
+    <Style TargetType="{x:Type Button}" x:Key="NavigationButton">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Margin" Value="5 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border  Name="container"
+                             Padding="{TemplateBinding Padding}"
+                             Background="{StaticResource MainBackgroundColorBrush}"
+                            CornerRadius="{Binding Path=ActualHeight,RelativeSource={RelativeSource Self}}">
+                        <Viewbox>
+                            <ContentPresenter ></ContentPresenter>
+                        </Viewbox>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+
+                        </Trigger>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource LightRedColor}"                                                    
+                                                    Duration="0:0:1"
+                                                    Storyboard.TargetName="container"
+                                                    Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource MainBackgroundColor}"
+                                                    Duration="0:0:1"
+                                                    Storyboard.TargetName="container"
+                                                    Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True" >
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Control Buttons -->
+    <Style TargetType="{x:Type Button}" x:Key="ControlButton">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="true" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Padding="{TemplateBinding Padding}"  Background="{TemplateBinding Background}">
+                        <TextBlock Text="{Binding Path=Content,RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- its the problem where the page shows out from the border-->
+    <!-- the navigation template -->
+    <Style TargetType="{x:Type Button}" x:Key="NButtons">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Grid Height="80" Width="50">
+                        <!-- The border that add the background and the shadow-->
+                        <Border BorderThickness="0" 
+                                BorderBrush="Black"
+                                CornerRadius="0,40,40,0"
+                                Margin="0 5 5 5"
+                                Opacity="0.5">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                    <GradientStop Color="#FF6A6A6A" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <!-- the Container Border-->
+                        <Border 
+                                CornerRadius="0,50,50,5"
+                                Margin="0 5 5 5"
+                                Padding="5">
+                            <ContentPresenter></ContentPresenter>
+
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- The Label Button -->
+    <ControlTemplate TargetType="Button" x:Key="LabelButton">
+        <Border CornerRadius="1000"
+                BorderBrush="{StaticResource BlueColorBruh}"
+                BorderThickness="2"
+                Width="{TemplateBinding ActualHeight}"
+                Padding="5"
+                SnapsToDevicePixels="True"
+                >
+           
+            <Border Background="{StaticResource TextBlackColorBrush}"
+                        CornerRadius="1000">
+                <ContentPresenter SnapsToDevicePixels="True" />
+            </Border>
+        </Border>
+    </ControlTemplate>
+    
+    <!-- the Link Button -->
+    <Style x:Key="LinkButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource TextGreenColorBrush}" />
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border x:Name="border" 
+                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsDefaulted" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- the Login Type RadioButtons Styles-->
+    <Style x:Key="LoginTypeButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Grid x:Name="templateRoot" 
+                                  Background="Transparent" 
+                                  SnapsToDevicePixels="True"
+                                  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border x:Name="radioButtonBorder"
+                                        Width="85"
+                                        Height="85"
+                                        BorderBrush="{StaticResource LightRedColorBruh}" 
+                                        BorderThickness="0" 
+                                        Background="{StaticResource TextBlackColorBrush}"
+                                        CornerRadius="1000"
+                                        HorizontalAlignment="Center" 
+                                        Margin="3"
+                                        VerticalAlignment="Center"
+                                        >
+                            <Grid x:Name="markGrid" Margin="2">
+                                <ContentPresenter 
+                                        x:Name="contentPresenter"
+                                        Grid.Column="1" 
+                                        Focusable="False"
+                                        HorizontalAlignment="Center" 
+                                        Margin="{TemplateBinding Padding}"
+                                        RecognizesAccessKey="True"
+                                        SnapsToDevicePixels="True" 
+                                        VerticalAlignment="Center"/>
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ThicknessAnimation From="0"
+                                                            To="10"
+                                                            Duration="0:0:0.2"
+                                                            Storyboard.TargetProperty="BorderThickness"
+                                                            Storyboard.TargetName="radioButtonBorder"
+                                                            DecelerationRatio="0.9"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ThicknessAnimation From="10"
+                                                            To="1"
+                                                            Duration="0:0:0.2"
+                                                            Storyboard.TargetProperty="BorderThickness"
+                                                            Storyboard.TargetName="radioButtonBorder"
+                                                            DecelerationRatio="0.9"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="BorderThickness" TargetName="radioButtonBorder" Value="10" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- the login button style -->
+    <Style x:Key="DefaultButton" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="15 5"/>
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Margin" Value="0 40 0 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                                BorderThickness="0" 
+                                Background="{StaticResource TextGreenColorBrush}"
+                                SnapsToDevicePixels="true"
+                                CornerRadius="10">
+                        <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource LightRedColor}"
+                                                        Duration="0:0:0.5"
+                                                        Storyboard.TargetName="border"
+                                                        Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource TextGreenColor}"
+                                                        Duration="0:0:0.5"
+                                                        Storyboard.TargetName="border"
+                                                        Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- The Transparen Button Style -->
+    <Style x:Key="TransButton" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextGreenColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                                BorderThickness="0" 
+                                SnapsToDevicePixels="true"
+                                CornerRadius="10">
+                        <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource LightRedColor}"
+                                                        Duration="0:0:0.5"
+                                                        Storyboard.TargetProperty="Foreground.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource TextGreenColor}"
+                                                        Duration="0:0:0.5"                                                        
+                                                        Storyboard.TargetProperty="Foreground.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--search button Style -->
+    <Style x:Key="SearchtButton" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextGreenColorBrush}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="20 0"/>
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="10 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                            BorderThickness="1" 
+                            Background="{StaticResource LightBlackColorBrush}"
+                            SnapsToDevicePixels="true"
+                            BorderBrush="{StaticResource TextGreenColorBrush}"
+                            CornerRadius="5">
+                        <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

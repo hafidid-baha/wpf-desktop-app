@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Library.BookCategoryItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Library"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             
+             >
+    <Grid Background="{StaticResource MainBackgroundColorBrush}">
+        <!-- outside border -->
+        <Border Padding="2" 
+                Background="{StaticResource MainBackgroundColorBrush}"
+                BorderBrush="{StaticResource TextBlackColorBrush}"
+                BorderThickness="0"
+                CornerRadius="10" Width="120" Height="160">
+            <Border.Effect>
+                <!-- drop shadow effect-->
+                <DropShadowEffect ShadowDepth="0"
+                                  Color="{StaticResource TextBlackColor}"
+                                  BlurRadius="15"
+                                  Opacity="0.5"/>
+            </Border.Effect>
+            
+            <!-- inside border the container -->
+            <Border BorderBrush="{StaticResource BlueColorBruh}"
+                    BorderThickness="1"
+                    CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="1,0" StartPoint="0,1">
+                        <GradientStop Color="#FF00BBE9" Offset="0.1"/>
+                        <GradientStop Color="#FF77d9ee" Offset="0.2"/>
+                        <GradientStop Color="#FF77d9ee" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                
+                <!-- the Item Content -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- the Image -->
+                    <Border Padding="5"
+                            Grid.Row="0"
+                            >
+                        <Image Source="{Binding Image,Converter={local:ImagesValueConverter}}" Stretch="Fill" />
+                    </Border>
+                    
+                    <!-- the item title -->
+                    <TextBlock Padding="4 0"
+                               Text="{Binding Title}" 
+                               TextAlignment="Center"
+                               Foreground="White" Grid.Row="1" 
+                               TextWrapping="Wrap"
+                               />
+                </Grid>
+                
+                
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>
